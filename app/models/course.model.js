@@ -1,0 +1,49 @@
+module.exports = mongoose => {
+  let course = mongoose.Schema({
+    courseCode: String,
+    courseName: String,
+    courseProgram: String,
+    courseSemester: String,
+    courseComment: String,
+    date: {
+      type: Date,
+      default: Date.now()
+    }
+  }) ;
+  course.method("toJSON", function() {
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+  });
+  return mongoose.model("course", course);
+}
+
+//
+//
+//
+// const mongoose = require('mongoose');
+// const Schema = mongoose.Schema;
+//
+// const CourseSchema = new Schema({
+//   courseCode: String,
+//   courseName: String,
+//   courseProgram: String,
+//   courseSemester: String,
+//   courseComment: String,
+//   date: {
+//     type: Date,
+//     default: Date.now
+//   },
+//   // student: {
+//   //   type: Schema.Types._ObjectId,
+//   //   ref: 'Student'
+//   // },
+// });
+//
+// CourseSchema.method("toJSON", function() {
+//   const { __v, _id, ...object } = this.toObject();
+//   object.id = _id;
+//   return object;
+// });
+//
+// module.exports = mongoose.model('course', CourseSchema);

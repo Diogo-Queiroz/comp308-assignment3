@@ -2,6 +2,7 @@ const db = require('../models');
 const Course = db.courses;
 
 exports.create = (req, res) => {
+  console.log("req", req.body);
   if (!req.body.courseCode) {
     res.status(400).send({message: "Content can not be empty"});
     return;

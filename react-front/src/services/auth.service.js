@@ -23,8 +23,8 @@ class AuthService {
     return axios.post(API_URL + "signup", {username, email, password, studentNumber, firstName, lastName, address, city, phoneNumber, program});
   }
 
-  registerCourse(couseCode, courseName, courseSection, courseSemester) {
-    return axios.post(API_URL + "addCourse", {couseCode, courseName, courseSection, courseSemester});
+  registerCourse(courseCode, courseName, courseSection, courseSemester) {
+    return axios.post(API_URL + "addCourse", {courseCode, courseName, courseSection, courseSemester});
   }
 
 }

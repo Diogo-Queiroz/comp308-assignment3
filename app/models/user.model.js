@@ -1,6 +1,13 @@
 module.exports = mongoose => {
   let user = mongoose.Schema({
     username: String,
+    studentNumber: String,
+    firstName: String,
+    lastName: String,
+    address: String,
+    city: String,
+    phoneNumber: String,
+    program: String,
     email: String,
     password: String,
     roles: [

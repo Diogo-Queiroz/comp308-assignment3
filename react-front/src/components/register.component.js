@@ -47,6 +47,16 @@ const vpassword = (value) => {
   }
 };
 
+const vstudentNumber = (value) => {
+  if (value.length != 9) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The student number must have 9 characters.
+      </div>
+    );
+  }
+};
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -54,9 +64,23 @@ class Register extends Component {
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeStudentNumber = this.onChangeStudentNumber.bind(this);
+    this.onChangeFirstName = this.onChangeFirstName.bind(this);
+    this.onChangeLastName = this.onChangeLastName.bind(this);
+    this.onChangeAddress = this.onChangeAddress.bind(this);
+    this.onChangeCity = this.onChangeCity.bind(this);
+    this.onChangePhoneNumber = this.onChangePhoneNumber.bind(this);
+    this.onChangeProgram = this.onChangeProgram.bind(this);
 
     this.state = {
       username: "",
+      studentNumber: "",
+      firstName: "",
+      lastName: "",
+      address: "",
+      city: "",
+      phoneNumber: "",
+      program: "",
       email: "",
       password: "",
       successful: false,
@@ -81,6 +105,48 @@ class Register extends Component {
     });
   }
 
+  onChangeStudentNumber(e) {
+    this.setState({
+      studentNumber: e.target.value,
+    })
+  }
+
+  onChangeFirstName(e) {
+    this.setState({
+      firstName: e.target.value,
+    })
+  }
+
+  onChangeLastName(e) {
+    this.setState({
+      lastName: e.target.value,
+    })
+  }
+
+  onChangeAddress(e) {
+    this.setState({
+      address: e.target.value,
+    })
+  }
+
+  onChangeCity(e) {
+    this.setState({
+      city: e.target.value,
+    })
+  }
+
+  onChangePhoneNumber(e) {
+    this.setState({
+      phoneNumber: e.target.value,
+    })
+  }
+
+  onChangeProgram(e) {
+    this.setState({
+      program: e.target.value,
+    })
+  }
+
   handleRegister(e) {
     e.preventDefault();
 
@@ -93,7 +159,11 @@ class Register extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       this.props
         .dispatch(
-          register(this.state.username, this.state.email, this.state.password)
+          register(
+            this.state.username, this.state.email, this.state.password,
+            this.state.studentNumber, this.state.firstName, this.state.lastName, this.state.address,
+            this.state.city, this.state.phoneNumber, this.state.program,
+          )
         )
         .then(() => {
           this.setState({
@@ -115,7 +185,7 @@ class Register extends Component {
       <div className="col-md-12">
         <div className="card card-container">
           <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            src="https://i0.wp.com/bellevuefuneralchapel.com/wp-content/uploads/2017/01/generic-profile-avatar_352864.jpg?fit=500,500"
             alt="profile-img"
             className="profile-img-card"
           />

@@ -15,7 +15,7 @@ export default class BoardUser extends Component {
     UserService.getUserBoard().then(
       response => {
         this.setState({
-          content: response.data
+          content: response.data.message
         });
       },
       error => {

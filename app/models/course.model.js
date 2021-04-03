@@ -2,9 +2,8 @@ module.exports = mongoose => {
   let course = mongoose.Schema({
     courseCode: String,
     courseName: String,
-    courseProgram: String,
+    courseSection: String,
     courseSemester: String,
-    courseComment: String,
     date: {
       type: Date,
       default: Date.now()

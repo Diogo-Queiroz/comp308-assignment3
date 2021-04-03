@@ -1,5 +1,5 @@
 exports.allAccess = (req, res) => {
-  res.status(200).send({ message: "Public Access" });
+  res.status(200).send({ message: "Home Page - Course List Assignment 3, COMP 308" });
 }
 
 exports.userBoard = (req, res) => {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import http from '../http-common';
 
 const API_URL = "http://localhost:8080/api/course/";
 
@@ -12,8 +13,12 @@ class CourseService {
     return axios.get(API_URL + "courses");
   }
 
-  getAllCoursesByStudent() {
-    return axios.get(API_URL + "coursesById");
+  getAllCoursesByStudent(id) {
+    return axios.get(API_URL + `coursesById/${id}`);
+  }
+
+  getAllStudentByCourse(id) {
+    return axios.get(API_URL + `studentByCourse/${id}`);
   }
 
 }

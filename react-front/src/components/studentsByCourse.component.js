@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import {connect} from "react-redux";
-import {Link} from "react-router-dom"
 
 import CourseService from "../services/course.service";
 import { getCoursesById } from "../actions/course";
 
-class BoardUser extends Component {
+class StudentsByCourse extends Component {
   constructor(props) {
     super(props);
     this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
-    this.retrieveCoursesByStudent = this.retrieveCoursesByStudent.bind(this);
+    this.retrieveStudents = this.retrieveStudents.bind(this);
 
     this.state = {
-      courses: [],
+      students: [],
       currentStudent: null,
       currentIndex: -1,
       searchTitle: ""
@@ -20,7 +19,7 @@ class BoardUser extends Component {
   }
 
   componentDidMount() {
-    this.retrieveCoursesByStudent()
+    this.retrieveStudents()
   }
 
   onChangeSearchTitle(e) {
@@ -30,25 +29,25 @@ class BoardUser extends Component {
     });
   }
 
-  retrieveCoursesByStudent() {
-    CourseService.getAllCoursesByStudent(this.props.user._id).then(response => {
-      console.log("resposta", response);
+  retrieveStudents() {
+    var url = this.props.match.url;
+    var id = url.split("/")[4]
+
+
+    CourseService.getAllStudentByCourse(id).then(response => {
       this.setState({
-        courses: response.data
+        students: response.data
       });
-      console.log("Retrieve Courses");
+      console.log("Retrieve Students");
       console.log(response.data);
     }).catch(err => {
       console.log(err.message);
     });
   }
 
-
   render() {
-    const {searchTitle, courses, currentStudent, currentIndex} = this.state;
-    console.log("State", this.state);
-    console.log("courses", courses);
-
+    const {searchTitle, students, currentStudent, currentIndex} = this.state;
+    console.log(this.state.students);
     return (
       <div className="list row">
         {/*<div className="col-md-8">*/}
@@ -65,30 +64,32 @@ class BoardUser extends Component {
         {/*  </div>*/}
         {/*</div>*/}
         <div className="col-md-12">
-          <h4>Course List</h4>
+          <h4>Student List</h4>
           <table className="table table-hover table-striped table-responsive-xl" align="center">
-            <caption>List of Courses of current user</caption>
+            <caption>List of All the Students</caption>
             <thead className="thead-light">
               <tr>
-                <th scope="col">Course Code</th>
-                <th scope="col">Course Name</th>
-                <th scope="col">Course Section</th>
-                <th scope="col">Course Semester</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Student Id</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Address</th>
+                <th scope="col">City</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Email</th>
+                <th scope="col">Program</th>
               </tr>
             </thead>
             <tbody>
-              {courses.courses && courses.courses.map((course, index) => (
+              {students.students && students.students.map((student, index) => (
                 <tr key={index}>
-                  <td>{course.courseCode}</td>
-                  <td>{course.courseName}</td>
-                  <td>{course.courseSection}</td>
-                  <td>{course.courseSemester}</td>
-                  <td>
-                    <Link to={"/api/course/studentByCourse/" + course.id} className="btn btn-danger">
-                      Drop Course
-                    </Link>
-                  </td>
+                  <td>{student._id}</td>
+                  <td>{student.firstName}</td>
+                  <td>{student.lastName}</td>
+                  <td>{student.address}</td>
+                  <td>{student.city}</td>
+                  <td>{student.phoneNumber}</td>
+                  <td>{student.email}</td>
+                  <td>{student.program}</td>
                 </tr>
               ))}
             </tbody>
@@ -109,4 +110,4 @@ function mapStateToProps(state) {
   return {message,user};
 }
 
-export default connect(mapStateToProps)(BoardUser);
+export default connect(mapStateToProps)(StudentsByCourse);

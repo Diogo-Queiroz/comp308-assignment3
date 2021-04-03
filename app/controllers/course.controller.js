@@ -113,7 +113,10 @@ exports.findOne = (req, res) => {
 
 
 exports.findAllById = (req, res) => {
-  var userId = req.params.id;
+  console.log("req.params", req.params);
+  var userId = "6068401736c2548d1c4b4c38";
+
+  var coursesList = []
 
   console.log("userId", userId);
   Course.find().then(data => {
@@ -125,11 +128,43 @@ exports.findAllById = (req, res) => {
         console.log("userId", userId);
         if (data[i].students[j]._id == userId) {
           console.log("Student in course");
+          coursesList.push(data[i])
         }
       }
     }
-    res.send({message: "Course almost found"});
+    res.send({message: "Course almost found", courses: coursesList});
   })
+}
+
+exports.findStudentsByCourse = (req, res) => {
+  console.log("req.params", req.params);
+  var userId = req.params.id;
+
+  var studentsList = []
+
+  console.log("userId", userId);
+  Student.find().then(data => {
+
+    console.log("data", data);
+    for (let i = 0; i < data.length; i++) {
+
+      console.log("Data Loop");
+      for (let j = 0; j < data[i].courses.length; j++) {
+
+        console.log("Students in the for loop", data[i].courses[j]._id);
+        console.log("userId", userId);
+        if (data[i].courses[j]._id == userId) {
+          console.log("Student in course");
+          studentsList.push(data[i])
+        }
+      }
+    }
+    res.send({message: "Course almost found", students: studentsList});
+  })
+}
+
+exports.dropCourse = (req,res) => {
+  
 }
 
 

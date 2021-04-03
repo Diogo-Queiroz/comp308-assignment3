@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import CourseService from "../services/course.service";
+import {Link} from "react-router-dom"
 
 export default class CourseList extends Component {
   constructor(props) {
@@ -79,7 +80,7 @@ export default class CourseList extends Component {
 
   render() {
     const {searchTitle, courses, currentStudent, currentIndex} = this.state;
-    console.log(this.state.courses);
+    console.log("Stateeeee", this.state.courses);
     return (
       <div className="list row">
         {/*<div className="col-md-8">*/}
@@ -105,6 +106,7 @@ export default class CourseList extends Component {
                 <th scope="col">Course Name</th>
                 <th scope="col">Section</th>
                 <th scope="col">Semester</th>
+                <th score="col">Students</th>
               </tr>
             </thead>
             <tbody>
@@ -114,6 +116,11 @@ export default class CourseList extends Component {
                   <td>{course.courseName}</td>
                   <td>{course.courseSection}</td>
                   <td>{course.courseSemester}</td>
+                  <td>
+                    <Link to={"/api/course/studentByCourse/" + course.id} className="btn btn-warning">
+                      See Students
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>

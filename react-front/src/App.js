@@ -18,6 +18,7 @@ import BoardAdmin from "./components/page-admin.component";
 import AddCourse from "./components/add-course.component";
 import StudentList from "./components/student-list.component";
 import CourseList from "./components/course-list.component";
+import studentByCourse from "./components/studentsByCourse.component";
 
 import {logout} from './actions/auth';
 import {clearMessage} from "./actions/message";
@@ -90,8 +91,8 @@ class App extends Component {
 
               {currentUser && (
                 <li className="nav-item">
-                  <Link to={"/coursesById"} className="nav-link">
-                    User
+                  <Link to={"/api/course/coursesById/" + this.props.user.id} className="nav-link">
+                    User courses
                   </Link>
                 </li>
               )}
@@ -147,7 +148,9 @@ class App extends Component {
               <Route exact path="/addCourse" component={AddCourse}/>
               <Route exact path="/students" component={StudentList}/>
               <Route exact path="/courses" component={CourseList}/>
-              <Route path="/coursesById/:id" component={BoardUser}/>
+              <Route path="/api/course/coursesById/:id" component={BoardUser}/>
+              <Route path="/api/course/studentByCourse/:id" component={studentByCourse}/>
+
               <Route path="/admin" component={BoardAdmin}/>
             </Switch>
           </div>

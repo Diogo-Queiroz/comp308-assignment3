@@ -27,6 +27,9 @@ class AuthService {
     return axios.post(API_URL + "addCourse", {courseCode, courseName, courseSection, courseSemester});
   }
 
+  getAllStudents() {
+    return axios.get(`${API_URL}students`);
+  }
 }
 
 export default new AuthService();

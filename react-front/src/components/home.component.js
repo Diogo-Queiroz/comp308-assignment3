@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import UserService from "../services/user.service";
+import {Link} from "react-router-dom";
 
 export default class Home extends Component {
   constructor(props) {
@@ -34,6 +35,9 @@ export default class Home extends Component {
       <div className="container">
         <header className="jumbotron">
           <h3>{this.state.content}</h3>
+          <Link to={"/students"} className="nav-link">
+            Students
+          </Link>
         </header>
       </div>
     );

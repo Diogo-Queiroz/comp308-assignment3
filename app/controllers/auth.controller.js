@@ -111,3 +111,15 @@ exports.signin = (req, res) => {
     });
   });
 }
+
+exports.findAll = (req, res) => {
+  const username = req.body.username;
+  let condition = username ? {username: { $regex: new RegExp(username()), $options: "i"}} : {};
+  console.log(condition);
+  User.find(condition).then(data =>{
+    console.log("findAllUsers", data);
+    res.send(data);
+  }).catch(err => {
+    res.status(500).send({ message: err.message || "Some error occurred retrieving all users" });
+  });
+};

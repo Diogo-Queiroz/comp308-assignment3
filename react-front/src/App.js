@@ -16,11 +16,13 @@ import Profile from "./components/profile.component";
 import BoardUser from "./components/page-user.component";
 import BoardAdmin from "./components/page-admin.component";
 import AddCourse from "./components/add-course.component";
+import StudentList from "./components/student-list.component";
 
 import {logout} from './actions/auth';
 import {clearMessage} from "./actions/message";
 
 import {history} from "./helpers/history";
+
 
 class App extends Component {
   constructor(props) {
@@ -64,6 +66,11 @@ class App extends Component {
               <li className="nav-item">
                 <Link to={"/home"} className="nav-link">
                   Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/students"} className="nav-link">
+                  Students
                 </Link>
               </li>
 
@@ -132,6 +139,7 @@ class App extends Component {
               <Route exact path="/register" component={Register}/>
               <Route exact path="/profile" component={Profile}/>
               <Route exact path="/addCourse" component={AddCourse}/>
+              <Route exact path="/students" component={StudentList}/>
               <Route path="/user" component={BoardUser}/>
               <Route path="/admin" component={BoardAdmin}/>
             </Switch>

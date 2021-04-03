@@ -9,5 +9,8 @@ module.exports = app => {
   router.delete('/:id', courses.delete);
   router.delete('/', courses.deleteAll);
 
+  app.get("/api/course/addCourse", courses.create);
+
+
   app.use('/api/courses', router);
 }

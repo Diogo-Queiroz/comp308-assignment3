@@ -9,3 +9,7 @@ exports.userBoard = (req, res) => {
 exports.adminBoard = (req, res) => {
   res.status(200).send({ message: "Admin Access" });
 }
+
+exports.addCourse = (req, res) => {
+  res.status(200).send({message: "Add course"})
+}

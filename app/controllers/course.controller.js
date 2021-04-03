@@ -9,10 +9,8 @@ exports.create = (req, res) => {
   const course = new Course({
     courseCode: req.body.courseCode,
     courseName: req.body.courseName,
-    courseProgram: req.body.courseProgram,
+    courseSection: req.body.courseSection,
     courseSemester: req.body.courseSemester,
-    courseComment: req.body.courseComment,
-    date: req.body.date ? req.body.date : Date.now(),
   });
 
   course.save(course).then(data => {

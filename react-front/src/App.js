@@ -15,6 +15,7 @@ import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/page-user.component";
 import BoardAdmin from "./components/page-admin.component";
+import AddCourse from "./components/add-course.component";
 
 import {logout} from './actions/auth';
 import {clearMessage} from "./actions/message";
@@ -81,6 +82,14 @@ class App extends Component {
                   </Link>
                 </li>
               )}
+
+              {currentUser && (
+                <li className="nav-item">
+                  <Link to={"/addCourse"} className="nav-link">
+                    Add Course
+                  </Link>
+                </li>
+              )}
             </div>
 
             {currentUser ? (
@@ -122,6 +131,7 @@ class App extends Component {
               <Route exact path="/login" component={Login}/>
               <Route exact path="/register" component={Register}/>
               <Route exact path="/profile" component={Profile}/>
+              <Route exact path="/addCourse" component={AddCourse}/>
               <Route path="/user" component={BoardUser}/>
               <Route path="/admin" component={BoardAdmin}/>
             </Switch>

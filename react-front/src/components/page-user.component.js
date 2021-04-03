@@ -4,6 +4,9 @@ import {Link} from "react-router-dom"
 
 import CourseService from "../services/course.service";
 import { getCoursesById } from "../actions/course";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+import Form from "react-validation/build/form";
 
 class BoardUser extends Component {
   constructor(props) {
@@ -15,7 +18,8 @@ class BoardUser extends Component {
       courses: [],
       currentStudent: null,
       currentIndex: -1,
-      searchTitle: ""
+      searchTitle: "",
+      studentId: ""
     };
   }
 
@@ -31,11 +35,12 @@ class BoardUser extends Component {
   }
 
   retrieveCoursesByStudent() {
-
-    CourseService.getAllCoursesByStudent(this.props.user.id).then(response => {
+    let id = this.props.user.id;
+    CourseService.getAllCoursesByStudent(id).then(response => {
       console.log("resposta", response);
       this.setState({
-        courses: response.data
+        courses: response.data,
+        studentId: id
       });
       console.log("Retrieve Courses");
       console.log(response.data);
@@ -46,7 +51,7 @@ class BoardUser extends Component {
 
 
   render() {
-    const {searchTitle, courses, currentStudent, currentIndex} = this.state;
+    const {searchTitle, courses, currentStudent, currentIndex, studentId} = this.state;
     console.log("State", this.state);
     console.log("courses", courses);
 
@@ -86,7 +91,32 @@ class BoardUser extends Component {
                   <td>{course.courseSection}</td>
                   <td>{course.courseSemester}</td>
                   <td>
-                    <Link to={"/api/course/studentByCourse/" + course.id} className="btn btn-danger">
+                    {/*<Form onSubmit={this.handleLogin}*/}
+                    {/*  ref={(c) => {*/}
+                    {/*    this.form = c;*/}
+                    {/*  }}*/}
+                    {/*>*/}
+
+                    {/*  <div className="form-group">*/}
+                    {/*    <button*/}
+                    {/*      className="btn btn-primary btn-block"*/}
+                    {/*      disabled={this.state.loading}*/}
+                    {/*    >*/}
+                    {/*      {this.state.loading && (*/}
+                    {/*        <span className="spinner-border spinner-border-sm"></span>*/}
+                    {/*      )}*/}
+                    {/*      <span>Login</span>*/}
+                    {/*    </button>*/}
+                    {/*  </div>*/}
+
+                    {/*  <CheckButton*/}
+                    {/*    style={{display: "none"}}*/}
+                    {/*    ref={(c) => {*/}
+                    {/*      this.checkBtn = c;*/}
+                    {/*    }}*/}
+                    {/*  />*/}
+                    {/*</Form>*/}
+                    <Link to={`/api/course/dropCourse/${course.id}/${studentId}`} className="btn btn-danger">
                       Drop Course
                     </Link>
                   </td>

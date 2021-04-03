@@ -13,8 +13,9 @@ module.exports = app => {
   app.get("/api/course/courses", courses.findAll);
   app.get('/api/course/coursesById/:id', courses.findAllById);
   app.get('/api/course/studentByCourse/:id', courses.findStudentsByCourse);
+  app.get('/api/course/courseDrop/:courseId/:studentId', courses.dropCourse);
 
-  app.delete("/api/courseDrop/:userId/:courseId", courses.dropCourse);
+  app.delete("/api/courseDrop/:courseId/:userId", courses.dropCourse);
 
   app.use('/api/courses', router);
 }

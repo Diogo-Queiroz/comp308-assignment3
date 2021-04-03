@@ -110,12 +110,13 @@ export default class StudentList extends Component {
                 <th scope="col">Phone Number</th>
                 <th scope="col">Email</th>
                 <th scope="col">Program</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               {students && students.map((student, index) => (
                 <tr key={index}>
-                  <td>{student.id}</td>
+                  <td>{student._id}</td>
                   <td>{student.firstName}</td>
                   <td>{student.lastName}</td>
                   <td>{student.address}</td>
@@ -123,6 +124,11 @@ export default class StudentList extends Component {
                   <td>{student.phoneNumber}</td>
                   <td>{student.email}</td>
                   <td>{student.program}</td>
+                  <td>
+                    <Link to={"/courseById/"+student._id} className="btn btn-warning">
+                      See Courses
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>

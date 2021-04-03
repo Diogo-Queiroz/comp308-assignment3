@@ -147,7 +147,7 @@ class App extends Component {
               <Route exact path="/addCourse" component={AddCourse}/>
               <Route exact path="/students" component={StudentList}/>
               <Route exact path="/courses" component={CourseList}/>
-              <Route path="/coursesById" component={BoardUser}/>
+              <Route path="/coursesById/:id" component={BoardUser}/>
               <Route path="/admin" component={BoardAdmin}/>
             </Switch>
           </div>

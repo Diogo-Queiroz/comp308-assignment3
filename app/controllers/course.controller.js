@@ -53,14 +53,20 @@ exports.create = (req, res) => {
       console.log("newCourse", newCourse);
       Course.findOne({courseCode: newCourse.courseCode}).then((course) => {
         console.log("filha da puta", course);
-        Student.findByIdAndUpdate({_id: userId}, {$addToSet: {courses: course}}, {new: false, useFindAndModify: false}, function (err, student) {
+        Student.findByIdAndUpdate({_id: userId}, {$addToSet: {courses: course}}, {
+          new: false,
+          useFindAndModify: false
+        }, function (err, student) {
           if (err) {
             res.send(err);
           } else {
             console.log("User", student);
           }
         }).then(data => {
-          Course.findByIdAndUpdate({_id: course._id}, {$addToSet: {students: data}}, {new: false, useFindAndModify: false}, function (err, course) {
+          Course.findByIdAndUpdate({_id: course._id}, {$addToSet: {students: data}}, {
+            new: false,
+            useFindAndModify: false
+          }, function (err, course) {
             console.log("poora do caralho");
           })
         })
@@ -85,13 +91,19 @@ exports.findAll = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-  const id = req.body.id;
-
-  Course.findOne(id).then(data => {
+  const id = req.params.id;
+  console.log("req", req);
+  Course.find({students: id}).then(data => {
     if (!data)
       res.status(400).send({message: "Data not found with id: " + id});
-    else
+    else {
+      console.log("course", data);
+      console.log("students", data.students);
+      for (let i = 0; i < data.students.length; i++) {
+        console.log("student id:", data.students[i]._id);
+      }
       res.send(data);
+    }
   }).catch(err => {
     res.status(500).send({
       message: err.message || "Some error occurred retrieving with id: " + id
@@ -101,11 +113,22 @@ exports.findOne = (req, res) => {
 
 
 exports.findAllById = (req, res) => {
-  var userId = req.body.userId;
-  console.log("req", req);
+  var userId = req.params.id;
 
-  Course.find({"students._id": userId}).then( data => {
+  console.log("userId", userId);
+  Course.find().then(data => {
     console.log("data", data);
+    for (let i = 0; i < data.length; i++) {
+      console.log("Data Loop");
+      for (let j = 0; j < data[i].students.length; j++) {
+        console.log("Students in the for loop", data[i].students[j]._id);
+        console.log("userId", userId);
+        if (data[i].students[j]._id == userId) {
+          console.log("Student in course");
+        }
+      }
+    }
+    res.send({message: "Course almost found"});
   })
 }
 

@@ -5,8 +5,8 @@ import {
   } from './types';
 
   import CourseService from '../services/course.service';
- 
-  
+
+
   export const registerCourse = (courseCode, courseName, courseSection, courseSemester, userId) => (dispatch) => {
     return CourseService.registerCourse(courseCode, courseName, courseSection, courseSemester, userId)
       .then((response) => {
@@ -24,4 +24,11 @@ import {
           return Promise.reject();
         });
   };
+
+  export const getCoursesById = (studentId) => (dispatch) => {
+    return CourseService.getAllCoursesByStudent()
+      .then((response) => {
+        console.log("response", response);
+      })
+  }
 

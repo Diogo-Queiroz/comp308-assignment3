@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import {connect} from "react-redux";
 
 import CourseService from "../services/course.service";
+import { getCoursesById } from "../actions/course";
 
- class BoardUser extends Component {
+class BoardUser extends Component {
   constructor(props) {
     super(props);
     this.onChangeSearchTitle = this.onChangeSearchTitle.bind(this);
@@ -15,7 +16,7 @@ import CourseService from "../services/course.service";
       currentIndex: -1,
       searchTitle: ""
     };
-  } 
+  }
 
   componentDidMount() {
     this.retrieveCoursesByStudent()
@@ -30,6 +31,7 @@ import CourseService from "../services/course.service";
 
   retrieveCoursesByStudent() {
     CourseService.getAllCoursesByStudent().then(response => {
+      console.log("resposta", response);
       this.setState({
         courses: response.data
       });

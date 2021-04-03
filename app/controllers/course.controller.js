@@ -7,7 +7,7 @@ const userModel = db.user;
 
 exports.create = (req, res) => {
 
-  var userId = req.userId;
+  var userId = req.body.userId;
 
   console.log("req", req.body);
   if (!req.body.courseCode) {
@@ -19,12 +19,35 @@ exports.create = (req, res) => {
     courseName: req.body.courseName,
     courseSection: req.body.courseSection,
     courseSemester: req.body.courseSemester,
+    students: []
   });
 
   Course.findOne({courseCode: newCourse.courseCode}).then(course => {
     if(!course)
     {
-      res.status(400).send({message: "Course not found with code: " + newCourse.courseCode});
+     //res.status(400).send({message: "Course not found with code: " + newCourse.courseCode});
+      console.log("Course not found with code: " + newCourse.courseCode);
+
+      newCourse.save(newCourse).then(data => {
+        res.send({ message: "Course registered successfully!" });
+
+      }).then(course => {
+        console.log("newCourse", newCourse._id);
+
+        console.log("Added user " + userId + " to course with code " + newCourse.courseCode);
+
+        Course.findByIdAndUpdate(
+          newCourse._id,
+          { $addToSet: { userId } },
+          { new: true, useFindAndModify: false }
+        );
+
+      }).catch(err => {
+        res.status(500).send({
+          message: err.message || "Some error occurred while creating"
+        });
+      });
+
     }
     else 
     {

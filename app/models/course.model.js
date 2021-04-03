@@ -10,10 +10,10 @@ module.exports = mongoose => {
       type: Date,
       default: Date.now()
     },
-    students: {
+    students: [{
       type: Schema.Types.ObjectId,
       ref: 'user'
-    }
+    }]
   }) ;
   course.method("toJSON", function() {
     const { __v, _id, ...object } = this.toObject();

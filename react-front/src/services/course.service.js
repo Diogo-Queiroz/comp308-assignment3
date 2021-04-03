@@ -8,6 +8,10 @@ class CourseService {
     return axios.post(API_URL + "addCourse", {courseCode, courseName, courseSection, courseSemester});
   }
 
+  getAllCourses() {
+    return axios.get(API_URL + "courses");
+  }
+
 }
 
 export default new CourseService();

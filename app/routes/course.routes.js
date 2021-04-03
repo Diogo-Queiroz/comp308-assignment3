@@ -10,6 +10,7 @@ module.exports = app => {
   router.delete('/', courses.deleteAll);
 
   app.post("/api/course/addCourse", courses.create);
+  app.get("/api/course/courses", courses.findAll);
 
 
   app.use('/api/courses', router);

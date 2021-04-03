@@ -31,7 +31,8 @@ class BoardUser extends Component {
   }
 
   retrieveCoursesByStudent() {
-    CourseService.getAllCoursesByStudent(this.props.user._id).then(response => {
+
+    CourseService.getAllCoursesByStudent(this.props.user.id).then(response => {
       console.log("resposta", response);
       this.setState({
         courses: response.data

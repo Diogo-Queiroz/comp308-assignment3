@@ -113,8 +113,7 @@ exports.findOne = (req, res) => {
 
 
 exports.findAllById = (req, res) => {
-  console.log("req.params", req.params);
-  var userId = "6068401736c2548d1c4b4c38";
+  var userId = req.params.id;
 
   var coursesList = []
 

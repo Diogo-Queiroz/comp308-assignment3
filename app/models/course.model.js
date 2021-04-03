@@ -1,3 +1,5 @@
+const { Schema } = require("mongoose");
+
 module.exports = mongoose => {
   let course = mongoose.Schema({
     courseCode: String,
@@ -7,6 +9,10 @@ module.exports = mongoose => {
     date: {
       type: Date,
       default: Date.now()
+    },
+    students: {
+      type: Schema.Types.ObjectId,
+      ref: 'user'
     }
   }) ;
   course.method("toJSON", function() {

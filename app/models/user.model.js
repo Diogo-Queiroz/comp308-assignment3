@@ -1,3 +1,5 @@
+const { Schema } = require("mongoose");
+
 module.exports = mongoose => {
   let user = mongoose.Schema({
     username: String,
@@ -14,6 +16,12 @@ module.exports = mongoose => {
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "role"
+      }
+    ],
+    courses:[
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "course"
       }
     ]
   });

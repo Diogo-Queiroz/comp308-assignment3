@@ -17,7 +17,6 @@ const required = (value) => {
   }
 };
 
-
 class AddCourse extends Component {
   constructor(props) {
     super(props);
@@ -33,9 +32,21 @@ class AddCourse extends Component {
       courseName: "",
       courseSection: "",
       courseSemester: "",
+      currentUser: undefined,
       successful: false,
     };
   }
+
+
+  componentDidMount() {
+    
+    console.log("user", this.props);
+
+  }
+  
+
+
+
 
   onChangeCourseCode(e) {
     this.setState({
@@ -75,7 +86,7 @@ class AddCourse extends Component {
         .dispatch(
           registerCourse(
             this.state.courseCode, this.state.courseName, this.state.courseSection,
-            this.state.courseSemester
+            this.state.courseSemester, this.props.user.id
           )
         )
         .then(() => {
@@ -187,7 +198,8 @@ class AddCourse extends Component {
 
 function mapStateToProps(state) {
   const {message} = state.message;
-  return {message};
+  const {user} = state.auth;
+  return {message,user};
 }
 
 export default connect(mapStateToProps)(AddCourse);

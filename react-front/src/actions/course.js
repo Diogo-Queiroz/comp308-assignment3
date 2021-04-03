@@ -5,10 +5,10 @@ import {
   } from './types';
 
   import CourseService from '../services/course.service';
-
-
-  export const registerCourse = (courseCode, courseName, courseSection, courseSemester) => (dispatch) => {
-    return CourseService.registerCourse(courseCode, courseName, courseSection, courseSemester)
+ 
+  
+  export const registerCourse = (courseCode, courseName, courseSection, courseSemester, userId) => (dispatch) => {
+    return CourseService.registerCourse(courseCode, courseName, courseSection, courseSemester, userId)
       .then((response) => {
           dispatch({type: REGISTER_SUCCESS});
           dispatch({type: SET_MESSAGE, payload: response.data.message});

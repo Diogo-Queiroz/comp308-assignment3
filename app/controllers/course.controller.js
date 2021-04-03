@@ -1,26 +1,68 @@
+const { user } = require('../models');
 const db = require('../models');
+const mongoose = require('mongoose')
+
 const Course = db.courses;
+const userModel = db.user;
 
 exports.create = (req, res) => {
+
+  var userId = req.userId;
+
   console.log("req", req.body);
   if (!req.body.courseCode) {
     res.status(400).send({message: "Content can not be empty"});
     return;
   }
-  const course = new Course({
+  const newCourse = new Course({
     courseCode: req.body.courseCode,
     courseName: req.body.courseName,
     courseSection: req.body.courseSection,
     courseSemester: req.body.courseSemester,
   });
 
-  course.save(course).then(data => {
-    res.send(data);
-  }).catch(err => {
-    res.status(500).send({
-      message: err.message || "Some error occurred while creating"
-    });
-  });
+  Course.findOne({courseCode: newCourse.courseCode}).then(course => {
+    if(!course)
+    {
+      res.status(400).send({message: "Course not found with code: " + newCourse.courseCode});
+    }
+    else 
+    {
+      console.log("newCourse", newCourse);
+      course.students.push(userId);
+
+    }
+  })
+
+
+  // userModel.findByIdAndUpdate({_id: "606801a62177f1a8f416dbbd"}, {$addToSet: {courses: course}}, {new: true}, function(err, student){
+  //   if (err){
+  //     res.send(err);
+  //   }
+  //   else
+  //   {
+  //     console.log("User", student);
+  //   }
+  // }).then( data => {
+  //   console.log("data", data);
+  // })
+
+
+  // userModel.findOne({ _id: "606801a62177f1a8f416dbbd"}).then(data =>{
+  //   if (!data)
+  //     res.status(400).send({message: "Data not found with id: " + id});
+  //   else
+  //     console.log("daaata", data);
+  // })
+
+  // course.save(course).then(data => {
+  //   res.send({ message: "Course registered successfully!" });
+
+  // }).catch(err => {
+  //   res.status(500).send({
+  //     message: err.message || "Some error occurred while creating"
+  //   });
+  // });
 };
 
 exports.findAll = (req, res) => {

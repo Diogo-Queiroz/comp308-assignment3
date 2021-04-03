@@ -6,8 +6,8 @@ import {
 
 import AuthService from '../services/auth.service';
 
-export const register = (username, email, password) => (dispatch) => {
-  return AuthService.register(username, email, password)
+export const register = (username, email, password, studentNumber, firstName, lastName, address, city, phoneNumber, program) => (dispatch) => {
+  return AuthService.register(username, email, password, studentNumber, firstName, lastName, address, city, phoneNumber, program)
     .then((response) => {
         dispatch({type: REGISTER_SUCCESS});
         dispatch({type: SET_MESSAGE, payload: response.data.message});

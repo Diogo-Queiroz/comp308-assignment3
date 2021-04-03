@@ -223,6 +223,90 @@ class Register extends Component {
                 </div>
 
                 <div className="form-group">
+                  <label htmlFor="studentNumber">student Number:</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="studentNumber"
+                    value={this.state.studentNumber}
+                    onChange={this.onChangeStudentNumber}
+                    validations={[required, vstudentNumber]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="firstName">First Name:</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="firstName"
+                    value={this.state.firstName}
+                    onChange={this.onChangeFirstName}
+                    validations={[required]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="lastName">Last Number:</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="lastName"
+                    value={this.state.lastName}
+                    onChange={this.onChangeLastName}
+                    validations={[required]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="address">Address:</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="address"
+                    value={this.state.address}
+                    onChange={this.onChangeAddress}
+                    validations={[required]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="city">City:</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="city"
+                    value={this.state.city}
+                    onChange={this.onChangeCity}
+                    validations={[required]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="phoneNumber">phone Number:</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="phoneNumber"
+                    value={this.state.phoneNumber}
+                    onChange={this.onChangePhoneNumber}
+                    validations={[required]}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="program">Program:</label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="program"
+                    value={this.state.program}
+                    onChange={this.onChangeProgram}
+                    validations={[required]}
+                  />
+                </div>
+
+                <div className="form-group">
                   <label htmlFor="password">Password</label>
                   <Input
                     type="password"

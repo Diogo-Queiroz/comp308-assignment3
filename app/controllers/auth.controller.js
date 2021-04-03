@@ -10,7 +10,14 @@ exports.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
-    password: encrypt.hashSync(req.body.password, 8)
+    password: encrypt.hashSync(req.body.password, 8),
+    studentNumber: req.body.studentNumber,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    address: req.body.address,
+    city: req.body.city,
+    phoneNumber: req.body.phoneNumber,
+    program: req.body.program
   });
 
   user.save((err, user) => {

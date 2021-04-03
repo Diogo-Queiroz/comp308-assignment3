@@ -12,6 +12,10 @@ class CourseService {
     return axios.get(API_URL + "courses");
   }
 
+  getAllCoursesByStudent() {
+    return axios.get(API_URL + "coursesById");
+  }
+
 }
 
 export default new CourseService();

@@ -43,12 +43,6 @@ exports.create = (req, res) => {
 
         console.log("Added user " + userId + " to course with code " + newCourse.courseCode);
 
-        // Course.findByIdAndUpdate(
-        //   newCourse._id,
-        //   { $addToSet: { userId } },
-        //   { new: true, useFindAndModify: false }
-        // );
-
       }).catch(err => {
         res.status(500).send({
           message: err.message || "Some error occurred while creating"
@@ -75,22 +69,6 @@ exports.create = (req, res) => {
     }
   })
 
-
-  // userModel.findOne({ _id: "606801a62177f1a8f416dbbd"}).then(data =>{
-  //   if (!data)
-  //     res.status(400).send({message: "Data not found with id: " + id});
-  //   else
-  //     console.log("daaata", data);
-  // })
-
-  // course.save(course).then(data => {
-  //   res.send({ message: "Course registered successfully!" });
-
-  // }).catch(err => {
-  //   res.status(500).send({
-  //     message: err.message || "Some error occurred while creating"
-  //   });
-  // });
 };
 
 exports.findAll = (req, res) => {
@@ -120,6 +98,17 @@ exports.findOne = (req, res) => {
     });
   });
 };
+
+
+exports.findAllById = (req, res) => {
+  var userId = req.body.userId;
+  console.log("req", req);
+
+  Course.find({"students._id": userId}).then( data => {
+    console.log("data", data);
+  })
+}
+
 
 exports.update = (req, res) => {
   if (!req.body) {

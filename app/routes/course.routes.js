@@ -11,7 +11,7 @@ module.exports = app => {
 
   app.post("/api/course/addCourse", courses.create);
   app.get("/api/course/courses", courses.findAll);
-
+  app.get("/api/course/coursesById", courses.findAllById)
 
   app.use('/api/courses', router);
 }

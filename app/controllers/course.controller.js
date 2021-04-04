@@ -122,12 +122,14 @@ exports.findAllById = (req, res) => {
     console.log("data", data);
     for (let i = 0; i < data.length; i++) {
       console.log("Data Loop");
-      for (let j = 0; j < data[i].students.length; j++) {
-        console.log("Students in the for loop", data[i].students[j]._id);
-        console.log("userId", userId);
-        if (data[i].students[j]._id == userId) {
-          console.log("Student in course");
-          coursesList.push(data[i])
+      if (data[i].students !== null) {
+        for (let j = 0; j < data[i].students.length; j++) {
+          console.log("Students in the for loop", data[i].students[j]._id);
+          console.log("userId", userId);
+          if (data[i].students[j]._id == userId) {
+            console.log("Student in course");
+            coursesList.push(data[i])
+          }
         }
       }
     }
@@ -162,21 +164,23 @@ exports.findStudentsByCourse = (req, res) => {
   })
 }
 
-exports.dropCourse = (req,res) => {
+exports.dropCourse = (req, res) => {
   console.log("res.params drop course", req.params);
-  const { courseId, studentId} = req.params;
+  const {courseId, studentId} = req.params;
   Student.find({_id: studentId}).then(data => {
     console.log("drop course data", data);
     const index = data[0].courses.indexOf(courseId);
     console.log("index of course", index);
     if (index !== -1)
       data[0].courses.splice(index, 1);
-    const newCourseList = data[0].courses;
     console.log("index of course after removal", data);
-    Student.findByIdAndUpdate({_id: studentId}, {$set: {courses: newCourseList}}, {multi: true})
-      .then(data => console.log("After findAndUpdate", data));
-    //Student.update({'users._id': ObjectId(studentId)}, {data}, {multi: true});
-    //Student.apply();
+
+    console.log("courses", data[0].courses);
+    const newCourseList = (data[0].courses == null) ? data[0].students : [];
+    console.log("courses", data[0].courses);
+     Student.findByIdAndUpdate({_id: studentId}, {$set: {courses: newCourseList}}, {multi: true})
+       .then(data => console.log("After findAndUpdate", data));
+
     Course.find({_id: courseId}).then(courseData => {
       console.log("drop course courseData", courseData);
       const studentIndex = courseData[0].students.indexOf(studentId);
@@ -184,13 +188,16 @@ exports.dropCourse = (req,res) => {
       if (studentIndex !== -1)
         courseData[0].students.splice(studentIndex, 1);
       console.log("drop course courseData after removal", courseData);
-      const newStudentList = data[0].students;
-      Course.findByIdAndUpdate({_id: courseId}, {$set: {students: newStudentList}}, {multi: true})
-        .then(data => console.log("After findAndUpdate", data));
-      //Course.update({'courses._id': ObjectId(courseId)}, {courseData}, {multi: true});
+
+      console.log("students", courseData[0].students);
+      const newStudentList = (courseData[0].students == null) ? courseData[0].students : [];
+      console.log("students", courseData[0].students);
+
+       Course.findByIdAndUpdate({_id: courseId}, {$set: {students: newStudentList}}, {multi: true})
+         .then(data => console.log("After findAndUpdate", data));
     })
   });
-  res.send({message: "Carai de asa", params: {courseId, studentId}});
+  res.status(200).send({message: "Course Dropped successfully"});
 }
 
 

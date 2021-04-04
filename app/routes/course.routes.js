@@ -15,7 +15,8 @@ module.exports = app => {
   app.get('/api/course/studentByCourse/:id', courses.findStudentsByCourse);
   app.get('/api/course/courseDrop/:courseId/:studentId', courses.dropCourse);
 
-  app.delete("/api/courseDrop/:courseId/:userId", courses.dropCourse);
+  //app.post("/api/course/courseDrop/:courseId/:studentId", courses.dropCourse);
+  router.post("/courseDrop/:courseId/:studentId", courses.dropCourse)
 
   app.use('/api/courses', router);
 }

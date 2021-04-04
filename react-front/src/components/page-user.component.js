@@ -7,6 +7,8 @@ import { getCoursesById } from "../actions/course";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import Form from "react-validation/build/form";
+import {login} from "../actions/auth";
+
 
 class BoardUser extends Component {
   constructor(props) {
@@ -49,6 +51,25 @@ class BoardUser extends Component {
     });
   }
 
+  handleDropCourse(e) {
+    e.preventDefault();
+
+    // this.setState({
+    //   loading: true,
+    // });
+
+    //this.form.validateAll();
+
+    const courseId = e.target[0].value;
+    const studentId = e.target[1].value;
+    console.log("input 0.name",e.target[0].name);
+    console.log("input 0.value",courseId);
+    console.log("input 1.name",e.target[1].name);
+    console.log("input 1.value",studentId);
+    //console.log("PARAMS submit form", this.params);
+
+    CourseService.courseDrop(courseId, studentId).then(r => console.log("from form", r));
+  }
 
   render() {
     const {searchTitle, courses, currentStudent, currentIndex, studentId} = this.state;
@@ -91,6 +112,11 @@ class BoardUser extends Component {
                   <td>{course.courseSection}</td>
                   <td>{course.courseSemester}</td>
                   <td>
+                    <form onSubmit={this.handleDropCourse} method="GET">
+                      <input type="hidden" value={course.id} name="courseId"/>
+                      <input type="hidden" value={studentId} name="studentId"/>
+                      <button type="submit" className="btn btn-danger">Drop Course</button>
+                    </form>
                     {/*<Form onSubmit={this.handleLogin}*/}
                     {/*  ref={(c) => {*/}
                     {/*    this.form = c;*/}
@@ -116,9 +142,9 @@ class BoardUser extends Component {
                     {/*    }}*/}
                     {/*  />*/}
                     {/*</Form>*/}
-                    <Link to={`/api/course/dropCourse/${course.id}/${studentId}`} className="btn btn-danger">
-                      Drop Course
-                    </Link>
+                    {/*<Link to={`/api/course/courseDrop/${course.id}/${studentId}`} className="btn btn-danger">*/}
+                    {/*  Drop Course*/}
+                    {/*</Link>*/}
                   </td>
                 </tr>
               ))}

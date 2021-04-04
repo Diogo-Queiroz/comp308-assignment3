@@ -21,6 +21,10 @@ class CourseService {
     return axios.get(API_URL + `studentByCourse/${id}`);
   }
 
+  courseDrop(courseId, studentId) {
+    return axios.get(API_URL + `courseDrop/${courseId}/${studentId}`);
+  }
+
 }
 
 export default new CourseService();
